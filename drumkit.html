@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drumkit Test V1</title>
+    <link rel="stylesheet" type="text/css" href="css/drumkit.css">
+</head>
+<body>
+    <div class="keys">
+        <div data-key="KeyK" id="1" onclick="playAudio('hatSound')" class="key">
+            <kbd>K</kbd>
+            <span class="sound">Hi Hat</span>
+        </div>
+        <div data-key="KeyS" id="2" onclick="playAudio('kickSound')" class="key">
+            <kbd>S</kbd>
+            <span class="sound">Kick</span>
+        </div>
+        <div data-key="Space" id="3" onclick="playAudio('snareSound')" class="key">
+            <kbd>Space</kbd>
+            <span class="sound">Snare</span>
+        </div>
+        <div data-key="KeyF" id="4" onclick="playAudio('cymbalSound')" class="key">
+            <kbd>F</kbd>
+            <span class="sound">Crash</span>
+        </div>
+    </div>
+    
+    <audio data-key="KeyK" id="hatSound" src="audio/Hat.wav"></audio>
+    <audio data-key="KeyS" id="kickSound"src="audio/Kick.wav"></audio>
+    <audio data-key="Space" id="snareSound"src="audio/Snare.wav"></audio>
+    <audio data-key="KeyF" id="cymbalSound"src="audio/Cymbal.wav"></audio>
+
+</body>
+<script>
+
+let click = false;
+let keydown = false;
+const keys = document.querySelectorAll('.key');
+
+    function playSound(e, audio, key) {
+        if(!audio) return;
+        // make audio start from the start every keystroke
+        audio.currentTime = 0;
+        // play audio 
+        audio.play();
+        key.classList.add('animation');
+    };
+
+
+    window.addEventListener("keydown", function(e) {
+        const audio = document.querySelector(`audio[data-key=${e.code}]`);
+        const key = document.querySelector(`.key[data-key=${e.code}]`);
+        playSound(e, audio, key);
+    });
+
+    function playAudio(id) {
+            window.addEventListener("click", function(e) {
+                const id = document.getElementById(e.target.id);
+                const audio = document.querySelector(`audio[data-key=${e.target.dataset.key}]`);
+                // console.log(audio);
+                if(!audio) return;
+                audio.currentTime = 0;
+                audio.play();
+                id.classList.add('animation');
+                // console.log(e.target.dataset.key);
+            });    
+    };
+ 
+
+    function removeTransition(e) {
+        if (e.propertyName !== "transform") return; 
+        this.classList.remove('animation');
+    };
+
+
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+</script>
+</html>
