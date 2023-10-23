@@ -7,24 +7,29 @@
     <link rel="stylesheet" type="text/css" href="css/drumkit.css">
 </head>
 <body>
-    <div class="keys">
-        <div data-key="KeyK" id="1" onclick="playAudio('hatSound')" class="key">
-            <kbd>K</kbd>
-            <span class="sound">Hi Hat</span>
+    
+    <div class="img">
+        <div class="keys">
+            <div data-key="KeyK" id="1" onclick="playAudio('hatSound')" class="key">
+                <kbd>K</kbd>
+                <span class="sound">Hi Hat</span>
+            </div>
+            <div data-key="KeyS" id="2" onclick="playAudio('kickSound')" class="key">
+                <kbd>S</kbd>
+                <span class="sound">Kick</span>
+            </div>
+            <div data-key="Space" id="3" onclick="playAudio('snareSound')" class="key">
+                <kbd>Space</kbd>
+                <span class="sound">Snare</span>
+            </div>
+            <div data-key="KeyF" id="4" onclick="playAudio('cymbalSound')" class="key">
+                <kbd>F</kbd>
+                <span class="sound">Crash</span>
+            </div>
         </div>
-        <div data-key="KeyS" id="2" onclick="playAudio('kickSound')" class="key">
-            <kbd>S</kbd>
-            <span class="sound">Kick</span>
-        </div>
-        <div data-key="Space" id="3" onclick="playAudio('snareSound')" class="key">
-            <kbd>Space</kbd>
-            <span class="sound">Snare</span>
-        </div>
-        <div data-key="KeyF" id="4" onclick="playAudio('cymbalSound')" class="key">
-            <kbd>F</kbd>
-            <span class="sound">Crash</span>
-        </div>
+    
     </div>
+
     
     <audio data-key="KeyK" id="hatSound" src="audio/Hat.wav"></audio>
     <audio data-key="KeyS" id="kickSound"src="audio/Kick.wav"></audio>
@@ -72,7 +77,6 @@ const keys = document.querySelectorAll('.key');
         if (e.propertyName !== "transform") return; 
         this.classList.remove('animation');
     };
-
 
     keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
