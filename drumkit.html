@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="shortcut icon" href="#">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Drumkit Test V1</title>
-    <link rel="stylesheet" type="text/css" href="css/drumkit.css">
+    <link rel="stylesheet" href="css/drumkit.css">
 </head>
 <body>
     
@@ -13,21 +14,41 @@
             <div data-key="KeyK" id="1" onclick="playAudio('hatSound')" class="key">
                 <kbd>K</kbd>
                 <span class="sound">Hi Hat</span>
+                <div class = keyVol id="key1">
+                    <input type="range" data-key="KeyK" style="width: 60px; height: 5px;" id="click1" min="0" max="1" value="90" step="0.1" />
+                    <label for="1">Volume</label>
+                </div>
             </div>
             <div data-key="KeyS" id="2" onclick="playAudio('kickSound')" class="key">
                 <kbd>S</kbd>
                 <span class="sound">Kick</span>
+                <div class = keyVol id="key2">
+                    <input type="range" data-key="KeyS" style="width: 60px; height: 5px;" id="click2" min="0" max="1" value="90" step="0.1" />
+                    <label for="2">Volume</label>
+                </div>
             </div>
             <div data-key="Space" id="3" onclick="playAudio('snareSound')" class="key">
                 <kbd>Space</kbd>
                 <span class="sound">Snare</span>
+                <div class = keyVol id="key3">
+                    <input type="range" data-key="Space" style="width: 60px; height: 5px;" id="click3" min="0" max="1" value="90" step="0.1" />
+                    <label for="3">Volume</label>
+                </div>
             </div>
             <div data-key="KeyF" id="4" onclick="playAudio('cymbalSound')" class="key">
                 <kbd>F</kbd>
                 <span class="sound">Crash</span>
+                <div class = keyVol id="key4">
+                    <input type="range" data-key="KeyF" style="width: 60px; height: 5px;" id="click4" min="0" max="1" value="90" step="0.1" />
+                    <label for="4">Volume</label>
+                </div>
             </div>
         </div>
     
+    </div>
+    <div class="credits">
+        <p>Background Image Credit: <span id="credit">CDD20    .</span></p>
+        <p>Drumkit Samples Credit: <span id="credit">churros4514</span></p>
     </div>
 
     
@@ -68,9 +89,26 @@ const keys = document.querySelectorAll('.key');
                 audio.currentTime = 0;
                 audio.play();
                 id.classList.add('animation');
-                // console.log(e.target.dataset.key);
+                console.log(audio.dataset.key, id.value);
+                // check if clicked target is the range input, then adjust volume
+                if (id.nodeName === "INPUT") {
+                    audio.volume = id.value;
+                };
+                
+
+                
             });    
     };
+
+    function getInfo(e) {
+        window.addEventListener("click", function(e) {
+            const vol = document.getElementById(e.target.id);
+            const audio = document.querySelector(`audio[data-key=${e.target.dataset.key}]`);
+            audio.volume = e.target.value;
+            
+            // audio.volume = vol.value;
+        })
+    }
  
 
     function removeTransition(e) {
